@@ -1,8 +1,14 @@
 import React from 'react';
-import {Text} from 'react-native';
+import {View, Text} from 'react-native';
+import './config/ReactotronConfig';
 
-const App: () => React$Node = () => {
-  return <Text>Olá mundo!</Text>;
+const App = () => {
+  console.tron.log('TESTE');
+  return (
+    <View>
+      <Text>Olá mundo!</Text>
+    </View>
+  );
 };
 
 export default App;
