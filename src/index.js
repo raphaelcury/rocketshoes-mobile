@@ -3,7 +3,6 @@ import {View, Text} from 'react-native';
 import './config/ReactotronConfig';
 
 const App = () => {
-  console.tron.log('TESTE');
   return (
     <View>
       <Text>Olá mundo!</Text>
