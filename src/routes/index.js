@@ -4,8 +4,6 @@ import {createStackNavigator} from '@react-navigation/stack';
 import Home from '../screens/Home';
 import Cart from '../screens/Cart';
 
-import Header from '../components/Header';
-
 const Stack = createStackNavigator();
 
 export default function routes() {
