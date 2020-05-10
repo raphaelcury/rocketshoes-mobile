@@ -1,13 +1,13 @@
 import React from 'react';
-import {View, Text} from 'react-native';
+import {NavigationContainer} from '@react-navigation/native';
 import './config/ReactotronConfig';
 
-const App = () => {
-  return (
-    <View>
-      <Text>Olá mundo!</Text>
-    </View>
-  );
-};
+import Routes from './routes';
 
-export default App;
+export default function App() {
+  return (
+    <NavigationContainer>
+      <Routes />
+    </NavigationContainer>
+  );
+}
