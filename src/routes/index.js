@@ -1,16 +1,16 @@
 import React from 'react';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {createStackNavigator} from '@react-navigation/stack';
 
 import Home from '../screens/Home';
 import Cart from '../screens/Cart';
 
-const Tab = createBottomTabNavigator();
+const Stack = createStackNavigator();
 
 export default function routes() {
   return (
-    <Tab.Navigator>
-      <Tab.Screen name="Home" component={Home} />
-      <Tab.Screen name="Cart" component={Cart} />
-    </Tab.Navigator>
+    <Stack.Navigator>
+      <Stack.Screen name="Home" component={Home} />
+      <Stack.Screen name="Cart" component={Cart} />
+    </Stack.Navigator>
   );
 }
