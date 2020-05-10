@@ -10,7 +10,14 @@ const Stack = createStackNavigator();
 
 export default function routes() {
   return (
-    <Stack.Navigator screenOptions={{headerTitle: <Header />}}>
+    <Stack.Navigator
+      screenOptions={{
+        headerTitle: <Header />,
+        headerTitleAlign: 'center',
+        headerBackTitleVisible: false,
+        headerStyle: {backgroundColor: '#000'},
+        headerTintColor: '#fff',
+      }}>
       <Stack.Screen name="Home" component={Home} title="Home" />
       <Stack.Screen name="Cart" component={Cart} title="Cart" />
     </Stack.Navigator>
