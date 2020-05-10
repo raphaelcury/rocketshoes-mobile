@@ -13,7 +13,7 @@ export default function Routes() {
       screenOptions={{
         headerTitleAlign: 'center',
         headerBackTitleVisible: false,
-        headerStyle: {backgroundColor: '2F4F4F'},
+        headerStyle: {backgroundColor: '#2F4F4F'},
         headerTintColor: '#fff',
       }}>
       <Stack.Screen name="home" component={Home} options={{title: 'Home'}} />
