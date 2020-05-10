@@ -9,7 +9,7 @@ const Header = () => {
   return (
     <Image
       source={logo}
-      style={{width: 150, height: 50}}
+      style={{width: 150, height: 100}}
       resizeMode="contain"
     />
   );
