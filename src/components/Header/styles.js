@@ -7,6 +7,10 @@ export const Container = styled.View`
   padding: 60px 20px 20px;
 `;
 
+export const Basket = styled.View`
+  flex-direction: row;
+`;
+
 export const Badge = styled.View`
   justify-content: center;
   align-items: center;
@@ -15,6 +19,8 @@ export const Badge = styled.View`
   background: #8a2be2;
   padding: 5px;
   border-radius: 10px;
+  margin-left: -10px;
+  margin-top: -5px;
 `;
 
 export const Counter = styled.Text`
