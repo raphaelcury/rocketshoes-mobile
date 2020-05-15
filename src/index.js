@@ -1,5 +1,5 @@
 import React from 'react';
-import {View} from 'react-native';
+import {View, StatusBar} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import './config/ReactotronConfig';
 
@@ -8,7 +8,8 @@ import Routes from './routes';
 
 export default function App() {
   return (
-    <View style={{backgroundColor: '#000', flex: 1}}>
+    <View style={{backgroundColor: '#141419', flex: 1}}>
+      <StatusBar barStyle="light-content" backgroundColor="#141419" />
       <Header />
       <NavigationContainer>
         <Routes />
