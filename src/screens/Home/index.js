@@ -26,24 +26,22 @@ export default class Home extends Component {
 
   async componentDidMount() {
     const response = await api.get('/products');
-    console.tron.log(response.data);
     this.setState({productList: [...response.data]});
   }
 
   render() {
     const {productList} = this.state;
-    console.tron.log(productList);
     return (
       <Container>
         <ProductList
           horizontal
           data={productList}
-          keyExtrator={(product) => product.id}
-          renderItem={(product) => (
+          keyExtrator={(product) => String(product.id)}
+          renderItem={({item}) => (
             <Product>
-              <ProductImage source={product.image} width="60" />
-              <ProductDescription>{product.title}</ProductDescription>
-              <ProductPrice>{product.price}</ProductPrice>
+              <ProductImage source={{uri: item.image}} />
+              <ProductDescription>{item.title}</ProductDescription>
+              <ProductPrice>{item.price}</ProductPrice>
               <AddButton>
                 <ButtonText>Adicionar</ButtonText>
               </AddButton>

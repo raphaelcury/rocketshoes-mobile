@@ -16,12 +16,15 @@ export const Product = styled.View`
   background: #fff;
   margin: 0px 10px;
 `;
-export const ProductImage = styled.Image``;
+export const ProductImage = styled.Image`
+  width: 150px;
+  height: 150px;
+`;
 export const ProductDescription = styled.Text`
-  color: #fff;
+  color: #000;
 `;
 export const ProductPrice = styled.Text`
-  color: #fff;
+  color: #000;
 `;
 export const AddButton = styled(RectButton)`
   justify-content: center;
