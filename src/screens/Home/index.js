@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
+import {formatPrice} from '../../util/format';
 import api from '../../services/api';
 
 import {
@@ -11,6 +13,8 @@ import {
   ProductDescription,
   ProductPrice,
   AddButton,
+  CartView,
+  CartCounter,
   ButtonText,
 } from './styles';
 
@@ -41,8 +45,12 @@ export default class Home extends Component {
             <Product>
               <ProductImage source={{uri: item.image}} />
               <ProductDescription>{item.title}</ProductDescription>
-              <ProductPrice>{item.price}</ProductPrice>
+              <ProductPrice>{formatPrice(item.price)}</ProductPrice>
               <AddButton>
+                <CartView>
+                  <Icon name="add-shopping-cart" color="#fff" size={28} />
+                  <CartCounter>3</CartCounter>
+                </CartView>
                 <ButtonText>Adicionar</ButtonText>
               </AddButton>
             </Product>
