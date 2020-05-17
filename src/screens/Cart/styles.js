@@ -25,6 +25,7 @@ export const Product = styled.View`
 
 export const ProductView = styled.View`
   flex-direction: row;
+  align-items: center;
   margin-bottom: 10px;
   flex: 3;
 `;
@@ -50,6 +51,8 @@ export const ProductPrice = styled.Text`
   margin-top: auto;
 `;
 
+export const DeleteButton = styled(RectButton)``;
+
 export const ProductSubtotal = styled.View`
   flex-direction: row;
   justify-content: space-between;
@@ -60,6 +63,14 @@ export const ProductSubtotal = styled.View`
   background: gainsboro;
 `;
 
+export const ProductQtyView = styled.View`
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const QtyButton = styled(RectButton)``;
+
 export const ProductQty = styled.TextInput`
   width: 50px;
   height: 25px;
@@ -67,6 +78,8 @@ export const ProductQty = styled.TextInput`
   border-radius: 5px;
   padding: 5px 10px;
   background: #fff;
+  margin-left: 5px;
+  margin-right: 5px;
 `;
 
 export const ProductSubtotalAmount = styled.Text`
