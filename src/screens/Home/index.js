@@ -1,9 +1,12 @@
 import React, {Component} from 'react';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
 import PropTypes from 'prop-types';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import {formatPrice} from '../../util/format';
 import api from '../../services/api';
+import * as Actions from '../../store/modules/Cart/actions';
 
 import {
   Container,
@@ -18,7 +21,7 @@ import {
   ButtonText,
 } from './styles';
 
-export default class Home extends Component {
+class Home extends Component {
   static propTypes = {
     navigation: PropTypes.shape({navigate: PropTypes.func.isRequired})
       .isRequired,
@@ -33,6 +36,11 @@ export default class Home extends Component {
     this.setState({productList: [...response.data]});
   }
 
+  handleAddButton = (product) => {
+    const {addToCart} = this.props;
+    addToCart(product);
+  };
+
   render() {
     const {productList} = this.state;
     return (
@@ -46,7 +54,7 @@ export default class Home extends Component {
               <ProductImage source={{uri: item.image}} />
               <ProductDescription>{item.title}</ProductDescription>
               <ProductPrice>{formatPrice(item.price)}</ProductPrice>
-              <AddButton>
+              <AddButton onPress={() => this.handleAddButton(item)}>
                 <CartView>
                   <Icon name="add-shopping-cart" color="#fff" size={28} />
                   <CartCounter>3</CartCounter>
@@ -60,3 +68,7 @@ export default class Home extends Component {
     );
   }
 }
+
+const mapDispatchToProps = (dispatch) => bindActionCreators(Actions, dispatch);
+
+export default connect(null, mapDispatchToProps)(Home);
