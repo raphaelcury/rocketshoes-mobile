@@ -65,6 +65,66 @@ const Cart = () => {
               <ProductSubtotalAmount>R$539,70</ProductSubtotalAmount>
             </ProductSubtotal>
           </Product>
+          <Product>
+            <ProductView>
+              <ProductImage
+                source={{
+                  uri:
+                    'https://rocketseat-cdn.s3-sa-east-1.amazonaws.com/modulo-redux/tenis1.jpg',
+                }}
+              />
+              <ProductData>
+                <ProductDescription>
+                  Tênis de Caminhada Leve Confortável
+                </ProductDescription>
+                <ProductPrice>R$179,90</ProductPrice>
+              </ProductData>
+            </ProductView>
+            <ProductSubtotal>
+              <ProductQty value="3" />
+              <ProductSubtotalAmount>R$539,70</ProductSubtotalAmount>
+            </ProductSubtotal>
+          </Product>
+          <Product>
+            <ProductView>
+              <ProductImage
+                source={{
+                  uri:
+                    'https://rocketseat-cdn.s3-sa-east-1.amazonaws.com/modulo-redux/tenis1.jpg',
+                }}
+              />
+              <ProductData>
+                <ProductDescription>
+                  Tênis de Caminhada Leve Confortável
+                </ProductDescription>
+                <ProductPrice>R$179,90</ProductPrice>
+              </ProductData>
+            </ProductView>
+            <ProductSubtotal>
+              <ProductQty value="3" />
+              <ProductSubtotalAmount>R$539,70</ProductSubtotalAmount>
+            </ProductSubtotal>
+          </Product>
+          <Product>
+            <ProductView>
+              <ProductImage
+                source={{
+                  uri:
+                    'https://rocketseat-cdn.s3-sa-east-1.amazonaws.com/modulo-redux/tenis1.jpg',
+                }}
+              />
+              <ProductData>
+                <ProductDescription>
+                  Tênis de Caminhada Leve Confortável
+                </ProductDescription>
+                <ProductPrice>R$179,90</ProductPrice>
+              </ProductData>
+            </ProductView>
+            <ProductSubtotal>
+              <ProductQty value="3" />
+              <ProductSubtotalAmount>R$539,70</ProductSubtotalAmount>
+            </ProductSubtotal>
+          </Product>
         </ProductList>
         <Total>
           <TotalText>TOTAL</TotalText>

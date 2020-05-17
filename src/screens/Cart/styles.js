@@ -7,7 +7,9 @@ export const Container = styled.View`
   background: #141419;
 `;
 
-export const CartView = styled.ScrollView`
+export const CartView = styled.ScrollView.attrs({
+  showsVerticalScrollIndicator: false,
+})`
   background: #fff;
   border-radius: 5px;
   padding: 10px;
