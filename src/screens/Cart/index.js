@@ -25,7 +25,7 @@ import {
   SubmitButtonText,
 } from './styles';
 
-const Cart = () => {
+const Cart = ({navigation}) => {
   return (
     <Container>
       <CartView>
@@ -65,7 +65,7 @@ const Cart = () => {
         <Total>
           <TotalText>TOTAL</TotalText>
           <TotalAmount>R$1619,10</TotalAmount>
-          <SubmitButton>
+          <SubmitButton onPress={() => navigation.navigate('Home')}>
             <SubmitButtonText>FINALIZAR PEDIDO</SubmitButtonText>
           </SubmitButton>
         </Total>
