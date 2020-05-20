@@ -25,6 +25,7 @@ class Home extends Component {
   static propTypes = {
     navigation: PropTypes.shape({navigate: PropTypes.func.isRequired})
       .isRequired,
+    addToCart: PropTypes.func.isRequired,
   };
 
   state = {
