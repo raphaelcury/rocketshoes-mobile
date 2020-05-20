@@ -1,5 +1,7 @@
 import React from 'react';
 import {Image, TouchableHighlight} from 'react-native';
+import {connect} from 'react-redux';
+import PropTypes from 'prop-types';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import {navigate} from '../../routes/rootNavigation';
@@ -8,7 +10,7 @@ import {Container, Basket, Badge, Counter} from './styles';
 
 import logo from '../../assets/images/logo.png';
 
-const Header = () => {
+const Header = ({count}) => {
   return (
     <Container>
       <TouchableHighlight onPress={() => navigate('Home')}>
@@ -22,7 +24,7 @@ const Header = () => {
         <Basket>
           <Icon name="shopping-basket" size={28} color="#fff" />
           <Badge>
-            <Counter>3</Counter>
+            <Counter>{count}</Counter>
           </Badge>
         </Basket>
       </TouchableHighlight>
@@ -30,4 +32,12 @@ const Header = () => {
   );
 };
 
-export default Header;
+Header.propTypes = {
+  count: PropTypes.number.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  count: state.CartReducer.length,
+});
+
+export default connect(mapStateToProps)(Header);

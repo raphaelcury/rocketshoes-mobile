@@ -1,4 +1,6 @@
 import React from 'react';
+import {connect} from 'react-redux';
+import PropTypes from 'prop-types';
 import FeatherIcon from 'react-native-vector-icons/Feather';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 
@@ -25,42 +27,49 @@ import {
   SubmitButtonText,
 } from './styles';
 
-const Cart = ({navigation}) => {
+const Cart = ({navigation, cart}) => {
   return (
     <Container>
       <CartView>
         <ProductList>
-          <Product>
-            <ProductView>
-              <ProductImage
-                source={{
-                  uri:
-                    'https://rocketseat-cdn.s3-sa-east-1.amazonaws.com/modulo-redux/tenis1.jpg',
-                }}
-              />
-              <ProductData>
-                <ProductDescription>
-                  Tênis de Caminhada Leve Confortável
-                </ProductDescription>
-                <ProductPrice>R$179,90</ProductPrice>
-              </ProductData>
-              <DeleteButton>
-                <MaterialIcon name="delete-forever" color="#8a2be2" size={20} />
-              </DeleteButton>
-            </ProductView>
-            <ProductSubtotal>
-              <ProductQtyView>
-                <QtyButton>
-                  <FeatherIcon name="plus-circle" color="#8a2be2" size={15} />
-                </QtyButton>
-                <ProductQty value="3" />
-                <QtyButton>
-                  <FeatherIcon name="minus-circle" color="#8a2be2" size={15} />
-                </QtyButton>
-              </ProductQtyView>
-              <ProductSubtotalAmount>R$539,70</ProductSubtotalAmount>
-            </ProductSubtotal>
-          </Product>
+          {cart.map((product) => (
+            <Product key={product.id}>
+              <ProductView>
+                <ProductImage
+                  source={{
+                    uri: product.image,
+                  }}
+                />
+                <ProductData>
+                  <ProductDescription>{product.title}</ProductDescription>
+                  <ProductPrice>{product.price}</ProductPrice>
+                </ProductData>
+                <DeleteButton>
+                  <MaterialIcon
+                    name="delete-forever"
+                    color="#8a2be2"
+                    size={20}
+                  />
+                </DeleteButton>
+              </ProductView>
+              <ProductSubtotal>
+                <ProductQtyView>
+                  <QtyButton>
+                    <FeatherIcon name="plus-circle" color="#8a2be2" size={15} />
+                  </QtyButton>
+                  <ProductQty value="3" />
+                  <QtyButton>
+                    <FeatherIcon
+                      name="minus-circle"
+                      color="#8a2be2"
+                      size={15}
+                    />
+                  </QtyButton>
+                </ProductQtyView>
+                <ProductSubtotalAmount>R$539,70</ProductSubtotalAmount>
+              </ProductSubtotal>
+            </Product>
+          ))}
         </ProductList>
         <Total>
           <TotalText>TOTAL</TotalText>
@@ -74,4 +83,20 @@ const Cart = ({navigation}) => {
   );
 };
 
-export default Cart;
+Cart.propTypes = {
+  navigation: PropTypes.shape({navigate: PropTypes.func.isRequired}).isRequired,
+  cart: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      title: PropTypes.string.isRequired,
+      price: PropTypes.number.isRequired,
+      image: PropTypes.string.isRequired,
+    })
+  ).isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  cart: state.CartReducer,
+});
+
+export default connect(mapStateToProps)(Cart);
