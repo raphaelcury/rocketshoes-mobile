@@ -57,7 +57,7 @@ const Cart = ({navigation, cart}) => {
                   <QtyButton>
                     <FeatherIcon name="plus-circle" color="#8a2be2" size={15} />
                   </QtyButton>
-                  <ProductQty value="3" />
+                  <ProductQty value={String(product.amount)} />
                   <QtyButton>
                     <FeatherIcon
                       name="minus-circle"
