@@ -32,7 +32,7 @@ import {
   SubmitButtonText,
 } from './styles';
 
-const Cart = ({navigation, cart, total, updateAmount}) => {
+const Cart = ({navigation, cart, total, updateAmount, deleteFromCart}) => {
   return (
     <Container>
       <CartView>
@@ -49,7 +49,7 @@ const Cart = ({navigation, cart, total, updateAmount}) => {
                   <ProductDescription>{product.title}</ProductDescription>
                   <ProductPrice>{formatPrice(product.price)}</ProductPrice>
                 </ProductData>
-                <DeleteButton>
+                <DeleteButton onPress={() => deleteFromCart(product.id)}>
                   <MaterialIcon
                     name="delete-forever"
                     color="#8a2be2"
@@ -60,10 +60,9 @@ const Cart = ({navigation, cart, total, updateAmount}) => {
               <ProductSubtotal>
                 <ProductQtyView>
                   <QtyButton
-                    onPress={() => {
-                      console.tron.log('CHEGUEI AQUI');
-                      updateAmount(product.id, product.amount + 1);
-                    }}>
+                    onPress={() =>
+                      updateAmount(product.id, product.amount + 1)
+                    }>
                     <FeatherIcon name="plus-circle" color="#8a2be2" size={15} />
                   </QtyButton>
                   <ProductQty value={String(product.amount)} />
@@ -109,6 +108,7 @@ Cart.propTypes = {
   ).isRequired,
   total: PropTypes.number.isRequired,
   updateAmount: PropTypes.func.isRequired,
+  deleteFromCart: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({

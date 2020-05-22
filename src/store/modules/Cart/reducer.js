@@ -25,6 +25,15 @@ export default function CartReducer(state = [], action) {
           draft[index].amount = action.amount;
         }
       });
+    case '@cart/DELETE':
+      return produce(state, (draft) => {
+        const index = draft.findIndex(
+          (product) => product.id === action.productId
+        );
+        if (index >= 0) {
+          draft.splice(index, 1);
+        }
+      });
     default:
       return state;
   }

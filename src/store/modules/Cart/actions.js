@@ -8,3 +8,8 @@ export const updateAmount = (productId, amount) => ({
   productId,
   amount,
 });
+
+export const deleteFromCart = (productId) => ({
+  type: '@cart/DELETE',
+  productId,
+});
