@@ -7,6 +7,8 @@ import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 
 import * as Actions from '../../store/modules/Cart/actions';
 
+import {formatPrice} from '../../util/format';
+
 import {
   Container,
   CartView,
@@ -45,7 +47,7 @@ const Cart = ({navigation, cart, updateAmount}) => {
                 />
                 <ProductData>
                   <ProductDescription>{product.title}</ProductDescription>
-                  <ProductPrice>{product.price}</ProductPrice>
+                  <ProductPrice>{formatPrice(product.price)}</ProductPrice>
                 </ProductData>
                 <DeleteButton>
                   <MaterialIcon
@@ -76,7 +78,9 @@ const Cart = ({navigation, cart, updateAmount}) => {
                     />
                   </QtyButton>
                 </ProductQtyView>
-                <ProductSubtotalAmount>R$539,70</ProductSubtotalAmount>
+                <ProductSubtotalAmount>
+                  {formatPrice(product.subTotal)}
+                </ProductSubtotalAmount>
               </ProductSubtotal>
             </Product>
           ))}
@@ -107,7 +111,10 @@ Cart.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  cart: state.CartReducer,
+  cart: state.CartReducer.map((product) => ({
+    ...product,
+    subTotal: product.amount * product.price,
+  })),
 });
 
 const mapDispatchToProps = (dispatch) => bindActionCreators(Actions, dispatch);
