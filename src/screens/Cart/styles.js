@@ -37,7 +37,8 @@ export const ProductImage = styled.Image`
 
 export const ProductData = styled.View`
   flex: 1;
-  padding: 5px;
+  height: 100%;
+  margin-left: 5px;
 `;
 
 export const ProductDescription = styled.Text`
