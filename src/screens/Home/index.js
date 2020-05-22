@@ -51,7 +51,7 @@ class Home extends Component {
         <ProductList
           horizontal
           data={productList}
-          keyExtrator={(product) => String(product.id)}
+          keyExtractor={(product) => String(product.id)}
           renderItem={({item}) => (
             <Product>
               <ProductImage source={{uri: item.image}} />
