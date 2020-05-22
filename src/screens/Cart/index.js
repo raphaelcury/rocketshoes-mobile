@@ -32,7 +32,7 @@ import {
   SubmitButtonText,
 } from './styles';
 
-const Cart = ({navigation, cart, updateAmount}) => {
+const Cart = ({navigation, cart, total, updateAmount}) => {
   return (
     <Container>
       <CartView>
@@ -87,7 +87,7 @@ const Cart = ({navigation, cart, updateAmount}) => {
         </ProductList>
         <Total>
           <TotalText>TOTAL</TotalText>
-          <TotalAmount>R$1619,10</TotalAmount>
+          <TotalAmount>{formatPrice(total)}</TotalAmount>
           <SubmitButton onPress={() => navigation.navigate('Home')}>
             <SubmitButtonText>FINALIZAR PEDIDO</SubmitButtonText>
           </SubmitButton>
@@ -107,6 +107,7 @@ Cart.propTypes = {
       image: PropTypes.string.isRequired,
     })
   ).isRequired,
+  total: PropTypes.number.isRequired,
   updateAmount: PropTypes.func.isRequired,
 };
 
@@ -115,6 +116,10 @@ const mapStateToProps = (state) => ({
     ...product,
     subTotal: product.amount * product.price,
   })),
+  total: state.CartReducer.reduce(
+    (total, product) => total + product.amount * product.price,
+    0
+  ),
 });
 
 const mapDispatchToProps = (dispatch) => bindActionCreators(Actions, dispatch);
