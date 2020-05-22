@@ -1,8 +1,11 @@
 import React from 'react';
+import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import FeatherIcon from 'react-native-vector-icons/Feather';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
+
+import * as Actions from '../../store/modules/Cart/actions';
 
 import {
   Container,
@@ -27,7 +30,7 @@ import {
   SubmitButtonText,
 } from './styles';
 
-const Cart = ({navigation, cart}) => {
+const Cart = ({navigation, cart, updateAmount}) => {
   return (
     <Container>
       <CartView>
@@ -54,11 +57,18 @@ const Cart = ({navigation, cart}) => {
               </ProductView>
               <ProductSubtotal>
                 <ProductQtyView>
-                  <QtyButton>
+                  <QtyButton
+                    onPress={() => {
+                      console.tron.log('CHEGUEI AQUI');
+                      updateAmount(product.id, product.amount + 1);
+                    }}>
                     <FeatherIcon name="plus-circle" color="#8a2be2" size={15} />
                   </QtyButton>
                   <ProductQty value={String(product.amount)} />
-                  <QtyButton>
+                  <QtyButton
+                    onPress={() =>
+                      updateAmount(product.id, product.amount - 1)
+                    }>
                     <FeatherIcon
                       name="minus-circle"
                       color="#8a2be2"
@@ -93,10 +103,13 @@ Cart.propTypes = {
       image: PropTypes.string.isRequired,
     })
   ).isRequired,
+  updateAmount: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   cart: state.CartReducer,
 });
 
-export default connect(mapStateToProps)(Cart);
+const mapDispatchToProps = (dispatch) => bindActionCreators(Actions, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(Cart);
