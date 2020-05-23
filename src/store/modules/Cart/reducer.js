@@ -2,7 +2,7 @@ import produce from 'immer';
 
 export default function CartReducer(state = [], action) {
   switch (action.type) {
-    case '@cart/ADD':
+    case '@cart/ADD_SUCCESS':
       return produce(state, (draft) => {
         const index = draft.findIndex(
           (product) => product.id === action.product.id

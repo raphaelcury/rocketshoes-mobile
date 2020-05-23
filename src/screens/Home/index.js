@@ -25,7 +25,7 @@ class Home extends Component {
   static propTypes = {
     navigation: PropTypes.shape({navigate: PropTypes.func.isRequired})
       .isRequired,
-    addToCart: PropTypes.func.isRequired,
+    addToCartRequest: PropTypes.func.isRequired,
     cartAmount: PropTypes.objectOf(PropTypes.number).isRequired,
   };
 
@@ -39,8 +39,8 @@ class Home extends Component {
   }
 
   handleAddButton = (product) => {
-    const {addToCart} = this.props;
-    addToCart(product);
+    const {addToCartRequest} = this.props;
+    addToCartRequest(product);
   };
 
   render() {
