@@ -9,8 +9,14 @@ export const addToCartSuccess = (product) => ({
   product,
 });
 
-export const updateAmount = (productId, amount) => ({
-  type: '@cart/UPDATE_AMOUNT',
+export const updateAmountRequest = (productId, amount) => ({
+  type: '@cart/UPDATE_AMOUNT_REQUEST',
+  productId,
+  amount,
+});
+
+export const updateAmountSuccess = (productId, amount) => ({
+  type: '@cart/UPDATE_AMOUNT_SUCCESS',
   productId,
   amount,
 });

@@ -34,7 +34,13 @@ import {
   SubmitButtonText,
 } from './styles';
 
-const Cart = ({navigation, cart, total, updateAmount, deleteFromCart}) => {
+const Cart = ({
+  navigation,
+  cart,
+  total,
+  updateAmountRequest,
+  deleteFromCart,
+}) => {
   return (
     <Container>
       {cart.length > 0 ? (
@@ -64,7 +70,7 @@ const Cart = ({navigation, cart, total, updateAmount, deleteFromCart}) => {
                   <ProductQtyView>
                     <QtyButton
                       onPress={() =>
-                        updateAmount(product.id, product.amount - 1)
+                        updateAmountRequest(product.id, product.amount - 1)
                       }>
                       <FeatherIcon
                         name="minus-circle"
@@ -75,7 +81,7 @@ const Cart = ({navigation, cart, total, updateAmount, deleteFromCart}) => {
                     <ProductQty value={String(product.amount)} />
                     <QtyButton
                       onPress={() =>
-                        updateAmount(product.id, product.amount + 1)
+                        updateAmountRequest(product.id, product.amount + 1)
                       }>
                       <FeatherIcon
                         name="plus-circle"
@@ -120,7 +126,7 @@ Cart.propTypes = {
     })
   ).isRequired,
   total: PropTypes.number.isRequired,
-  updateAmount: PropTypes.func.isRequired,
+  updateAmountRequest: PropTypes.func.isRequired,
   deleteFromCart: PropTypes.func.isRequired,
 };
 

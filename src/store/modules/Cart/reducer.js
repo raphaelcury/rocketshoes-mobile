@@ -13,7 +13,7 @@ export default function CartReducer(state = [], action) {
           draft.push({...action.product, amount: 1});
         }
       });
-    case '@cart/UPDATE_AMOUNT':
+    case '@cart/UPDATE_AMOUNT_SUCCESS':
       return produce(state, (draft) => {
         if (action.amount <= 0) {
           return;
