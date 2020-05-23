@@ -12,13 +12,14 @@ export const EmptyView = styled.View`
   align-items: center;
   background: lightgray;
   width: 100%;
-  height: 200px;
+  height: 150px;
   border-radius: 5px;
 `;
 
 export const EmptyText = styled.Text`
-  color: #696969;
+  color: #333;
   font-size: 24px;
+  margin-top: 10px;
 `;
 
 export const CartView = styled.ScrollView.attrs({
