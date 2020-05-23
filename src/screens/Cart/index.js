@@ -56,7 +56,7 @@ const Cart = ({
                   />
                   <ProductData>
                     <ProductDescription>{product.title}</ProductDescription>
-                    <ProductPrice>{formatPrice(product.price)}</ProductPrice>
+                    <ProductPrice>{product.formattedPrice}</ProductPrice>
                   </ProductData>
                   <DeleteButton onPress={() => deleteFromCart(product.id)}>
                     <MaterialIcon
@@ -91,7 +91,7 @@ const Cart = ({
                     </QtyButton>
                   </ProductQtyView>
                   <ProductSubtotalAmount>
-                    {formatPrice(product.subTotal)}
+                    {product.subTotal}
                   </ProductSubtotalAmount>
                 </ProductSubtotal>
               </Product>
@@ -99,7 +99,7 @@ const Cart = ({
           </ProductList>
           <Total>
             <TotalText>TOTAL</TotalText>
-            <TotalAmount>{formatPrice(total)}</TotalAmount>
+            <TotalAmount>{total}</TotalAmount>
             <SubmitButton onPress={() => navigation.navigate('Home')}>
               <SubmitButtonText>FINALIZAR PEDIDO</SubmitButtonText>
             </SubmitButton>
@@ -123,9 +123,11 @@ Cart.propTypes = {
       title: PropTypes.string.isRequired,
       price: PropTypes.number.isRequired,
       image: PropTypes.string.isRequired,
+      formattedPrice: PropTypes.string.isRequired,
+      subTotal: PropTypes.string.isRequired,
     })
   ).isRequired,
-  total: PropTypes.number.isRequired,
+  total: PropTypes.string.isRequired,
   updateAmountRequest: PropTypes.func.isRequired,
   deleteFromCart: PropTypes.func.isRequired,
 };
@@ -133,11 +135,14 @@ Cart.propTypes = {
 const mapStateToProps = (state) => ({
   cart: state.CartReducer.map((product) => ({
     ...product,
-    subTotal: product.amount * product.price,
+    formattedPrice: formatPrice(product.price),
+    subTotal: formatPrice(product.amount * product.price),
   })),
-  total: state.CartReducer.reduce(
-    (total, product) => total + product.amount * product.price,
-    0
+  total: formatPrice(
+    state.CartReducer.reduce(
+      (total, product) => total + product.amount * product.price,
+      0
+    )
   ),
 });
 

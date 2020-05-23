@@ -35,7 +35,11 @@ class Home extends Component {
 
   async componentDidMount() {
     const response = await api.get('/products');
-    this.setState({productList: [...response.data]});
+    const productList = response.data.map((product) => ({
+      ...product,
+      formattedPrice: formatPrice(product.price),
+    }));
+    this.setState({productList: [...productList]});
   }
 
   handleAddButton = (product) => {
@@ -56,7 +60,7 @@ class Home extends Component {
             <Product>
               <ProductImage source={{uri: item.image}} />
               <ProductDescription>{item.title}</ProductDescription>
-              <ProductPrice>{formatPrice(item.price)}</ProductPrice>
+              <ProductPrice>{item.formattedPrice}</ProductPrice>
               <AddButton onPress={() => this.handleAddButton(item)}>
                 <CartView>
                   <Icon name="add-shopping-cart" color="#fff" size={28} />
