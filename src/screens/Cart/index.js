@@ -11,6 +11,8 @@ import {formatPrice} from '../../util/format';
 
 import {
   Container,
+  EmptyView,
+  EmptyText,
   CartView,
   ProductList,
   Product,
@@ -35,63 +37,74 @@ import {
 const Cart = ({navigation, cart, total, updateAmount, deleteFromCart}) => {
   return (
     <Container>
-      <CartView>
-        <ProductList>
-          {cart.map((product) => (
-            <Product key={product.id}>
-              <ProductView>
-                <ProductImage
-                  source={{
-                    uri: product.image,
-                  }}
-                />
-                <ProductData>
-                  <ProductDescription>{product.title}</ProductDescription>
-                  <ProductPrice>{formatPrice(product.price)}</ProductPrice>
-                </ProductData>
-                <DeleteButton onPress={() => deleteFromCart(product.id)}>
-                  <MaterialIcon
-                    name="delete-forever"
-                    color="#8a2be2"
-                    size={20}
+      {cart.length > 0 ? (
+        <CartView>
+          <ProductList>
+            {cart.map((product) => (
+              <Product key={product.id}>
+                <ProductView>
+                  <ProductImage
+                    source={{
+                      uri: product.image,
+                    }}
                   />
-                </DeleteButton>
-              </ProductView>
-              <ProductSubtotal>
-                <ProductQtyView>
-                  <QtyButton
-                    onPress={() =>
-                      updateAmount(product.id, product.amount + 1)
-                    }>
-                    <FeatherIcon name="plus-circle" color="#8a2be2" size={15} />
-                  </QtyButton>
-                  <ProductQty value={String(product.amount)} />
-                  <QtyButton
-                    onPress={() =>
-                      updateAmount(product.id, product.amount - 1)
-                    }>
-                    <FeatherIcon
-                      name="minus-circle"
+                  <ProductData>
+                    <ProductDescription>{product.title}</ProductDescription>
+                    <ProductPrice>{formatPrice(product.price)}</ProductPrice>
+                  </ProductData>
+                  <DeleteButton onPress={() => deleteFromCart(product.id)}>
+                    <MaterialIcon
+                      name="delete-forever"
                       color="#8a2be2"
-                      size={15}
+                      size={20}
                     />
-                  </QtyButton>
-                </ProductQtyView>
-                <ProductSubtotalAmount>
-                  {formatPrice(product.subTotal)}
-                </ProductSubtotalAmount>
-              </ProductSubtotal>
-            </Product>
-          ))}
-        </ProductList>
-        <Total>
-          <TotalText>TOTAL</TotalText>
-          <TotalAmount>{formatPrice(total)}</TotalAmount>
-          <SubmitButton onPress={() => navigation.navigate('Home')}>
-            <SubmitButtonText>FINALIZAR PEDIDO</SubmitButtonText>
-          </SubmitButton>
-        </Total>
-      </CartView>
+                  </DeleteButton>
+                </ProductView>
+                <ProductSubtotal>
+                  <ProductQtyView>
+                    <QtyButton
+                      onPress={() =>
+                        updateAmount(product.id, product.amount + 1)
+                      }>
+                      <FeatherIcon
+                        name="plus-circle"
+                        color="#8a2be2"
+                        size={15}
+                      />
+                    </QtyButton>
+                    <ProductQty value={String(product.amount)} />
+                    <QtyButton
+                      onPress={() =>
+                        updateAmount(product.id, product.amount - 1)
+                      }>
+                      <FeatherIcon
+                        name="minus-circle"
+                        color="#8a2be2"
+                        size={15}
+                      />
+                    </QtyButton>
+                  </ProductQtyView>
+                  <ProductSubtotalAmount>
+                    {formatPrice(product.subTotal)}
+                  </ProductSubtotalAmount>
+                </ProductSubtotal>
+              </Product>
+            ))}
+          </ProductList>
+          <Total>
+            <TotalText>TOTAL</TotalText>
+            <TotalAmount>{formatPrice(total)}</TotalAmount>
+            <SubmitButton onPress={() => navigation.navigate('Home')}>
+              <SubmitButtonText>FINALIZAR PEDIDO</SubmitButtonText>
+            </SubmitButton>
+          </Total>
+        </CartView>
+      ) : (
+        <EmptyView>
+          <MaterialIcon name="remove-shopping-cart" size={40} color="#808080" />
+          <EmptyText>Seu carrinho está vazio</EmptyText>
+        </EmptyView>
+      )}
     </Container>
   );
 };

@@ -7,6 +7,20 @@ export const Container = styled.View`
   background: #141419;
 `;
 
+export const EmptyView = styled.View`
+  justify-content: center;
+  align-items: center;
+  background: lightgray;
+  width: 100%;
+  height: 200px;
+  border-radius: 5px;
+`;
+
+export const EmptyText = styled.Text`
+  color: #696969;
+  font-size: 24px;
+`;
+
 export const CartView = styled.ScrollView.attrs({
   showsVerticalScrollIndicator: false,
 })`
