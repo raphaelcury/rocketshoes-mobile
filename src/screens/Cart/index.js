@@ -64,10 +64,10 @@ const Cart = ({navigation, cart, total, updateAmount, deleteFromCart}) => {
                   <ProductQtyView>
                     <QtyButton
                       onPress={() =>
-                        updateAmount(product.id, product.amount + 1)
+                        updateAmount(product.id, product.amount - 1)
                       }>
                       <FeatherIcon
-                        name="plus-circle"
+                        name="minus-circle"
                         color="#8a2be2"
                         size={15}
                       />
@@ -75,10 +75,10 @@ const Cart = ({navigation, cart, total, updateAmount, deleteFromCart}) => {
                     <ProductQty value={String(product.amount)} />
                     <QtyButton
                       onPress={() =>
-                        updateAmount(product.id, product.amount - 1)
+                        updateAmount(product.id, product.amount + 1)
                       }>
                       <FeatherIcon
-                        name="minus-circle"
+                        name="plus-circle"
                         color="#8a2be2"
                         size={15}
                       />
