@@ -1,6 +1,7 @@
 import {Alert} from 'react-native';
 import {call, select, put, all, takeLatest} from 'redux-saga/effects';
 import api from '../../../services/api';
+import {navigate} from '../../../routes/rootNavigation';
 
 import {addToCartSuccess, updateAmountSuccess} from './actions';
 
@@ -26,6 +27,7 @@ function* addToCartRequest({product}) {
   }
   if (yield verifyStock(product.id, amount)) {
     yield put(addToCartSuccess(product));
+    navigate('Cart');
   }
 }
 
