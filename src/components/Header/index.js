@@ -1,7 +1,6 @@
 import React from 'react';
 import {Image, TouchableHighlight} from 'react-native';
-import {connect} from 'react-redux';
-import PropTypes from 'prop-types';
+import {useSelector} from 'react-redux';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import {navigate} from '../../routes/rootNavigation';
@@ -10,7 +9,9 @@ import {Container, Basket, Badge, Counter} from './styles';
 
 import logo from '../../assets/images/logo.png';
 
-const Header = ({count}) => {
+export default function Header() {
+  const count = useSelector((state) => state.CartReducer.length);
+
   return (
     <Container>
       <TouchableHighlight onPress={() => navigate('Home')}>
@@ -30,14 +31,4 @@ const Header = ({count}) => {
       </TouchableHighlight>
     </Container>
   );
-};
-
-Header.propTypes = {
-  count: PropTypes.number.isRequired,
-};
-
-const mapStateToProps = (state) => ({
-  count: state.CartReducer.length,
-});
-
-export default connect(mapStateToProps)(Header);
+}
