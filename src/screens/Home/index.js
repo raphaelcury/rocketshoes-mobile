@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {useState, useEffect} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import PropTypes from 'prop-types';
@@ -21,60 +21,54 @@ import {
   ButtonText,
 } from './styles';
 
-class Home extends Component {
-  static propTypes = {
-    navigation: PropTypes.shape({navigate: PropTypes.func.isRequired})
-      .isRequired,
-    addToCartRequest: PropTypes.func.isRequired,
-    cartAmount: PropTypes.objectOf(PropTypes.number).isRequired,
-  };
+function Home({addToCartRequest, cartAmount}) {
+  const [productList, setProductList] = useState([]);
 
-  state = {
-    productList: [],
-  };
+  useEffect(() => {
+    async function getProductList() {
+      const response = await api.get('/products');
+      const newProductList = response.data.map((product) => ({
+        ...product,
+        formattedPrice: formatPrice(product.price),
+      }));
+      setProductList([...newProductList]);
+    }
+    getProductList();
+  }, []);
 
-  async componentDidMount() {
-    const response = await api.get('/products');
-    const productList = response.data.map((product) => ({
-      ...product,
-      formattedPrice: formatPrice(product.price),
-    }));
-    this.setState({productList: [...productList]});
-  }
-
-  handleAddButton = (product) => {
-    const {addToCartRequest} = this.props;
+  const handleAddButton = (product) => {
     addToCartRequest(product);
   };
 
-  render() {
-    const {productList} = this.state;
-    const {cartAmount} = this.props;
-    return (
-      <Container>
-        <ProductList
-          horizontal
-          data={productList}
-          keyExtractor={(product) => String(product.id)}
-          renderItem={({item}) => (
-            <Product>
-              <ProductImage source={{uri: item.image}} />
-              <ProductDescription>{item.title}</ProductDescription>
-              <ProductPrice>{item.formattedPrice}</ProductPrice>
-              <AddButton onPress={() => this.handleAddButton(item)}>
-                <CartView>
-                  <Icon name="add-shopping-cart" color="#fff" size={28} />
-                  <CartCounter>{cartAmount[item.id] || 0}</CartCounter>
-                </CartView>
-                <ButtonText>Adicionar</ButtonText>
-              </AddButton>
-            </Product>
-          )}
-        />
-      </Container>
-    );
-  }
+  return (
+    <Container>
+      <ProductList
+        horizontal
+        data={productList}
+        keyExtractor={(product) => String(product.id)}
+        renderItem={({item}) => (
+          <Product>
+            <ProductImage source={{uri: item.image}} />
+            <ProductDescription>{item.title}</ProductDescription>
+            <ProductPrice>{item.formattedPrice}</ProductPrice>
+            <AddButton onPress={() => handleAddButton(item)}>
+              <CartView>
+                <Icon name="add-shopping-cart" color="#fff" size={28} />
+                <CartCounter>{cartAmount[item.id] || 0}</CartCounter>
+              </CartView>
+              <ButtonText>Adicionar</ButtonText>
+            </AddButton>
+          </Product>
+        )}
+      />
+    </Container>
+  );
 }
+
+Home.propTypes = {
+  addToCartRequest: PropTypes.func.isRequired,
+  cartAmount: PropTypes.objectOf(PropTypes.number).isRequired,
+};
 
 const mapStatetoProps = (state) => ({
   cartAmount: state.CartReducer.reduce((cartAmount, product) => {
