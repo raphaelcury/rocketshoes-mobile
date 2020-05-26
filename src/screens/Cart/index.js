@@ -1,6 +1,5 @@
 import React from 'react';
-import {bindActionCreators} from 'redux';
-import {connect} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 import PropTypes from 'prop-types';
 import FeatherIcon from 'react-native-vector-icons/Feather';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
@@ -34,13 +33,24 @@ import {
   SubmitButtonText,
 } from './styles';
 
-const Cart = ({
-  navigation,
-  cart,
-  total,
-  updateAmountRequest,
-  deleteFromCart,
-}) => {
+export default function Cart({navigation}) {
+  const cart = useSelector((state) =>
+    state.CartReducer.map((product) => ({
+      ...product,
+      formattedPrice: formatPrice(product.price),
+      subTotal: formatPrice(product.amount * product.price),
+    }))
+  );
+  const total = useSelector((state) =>
+    formatPrice(
+      state.CartReducer.reduce(
+        (cartTotal, product) => cartTotal + product.amount * product.price,
+        0
+      )
+    )
+  );
+
+  const dispatch = useDispatch();
   return (
     <Container>
       {cart.length > 0 ? (
@@ -58,7 +68,10 @@ const Cart = ({
                     <ProductDescription>{product.title}</ProductDescription>
                     <ProductPrice>{product.formattedPrice}</ProductPrice>
                   </ProductData>
-                  <DeleteButton onPress={() => deleteFromCart(product.id)}>
+                  <DeleteButton
+                    onPress={() =>
+                      dispatch(Actions.deleteFromCart(product.id))
+                    }>
                     <MaterialIcon
                       name="delete-forever"
                       color="#8a2be2"
@@ -70,7 +83,12 @@ const Cart = ({
                   <ProductQtyView>
                     <QtyButton
                       onPress={() =>
-                        updateAmountRequest(product.id, product.amount - 1)
+                        dispatch(
+                          Actions.updateAmountRequest(
+                            product.id,
+                            product.amount - 1
+                          )
+                        )
                       }>
                       <FeatherIcon
                         name="minus-circle"
@@ -81,7 +99,12 @@ const Cart = ({
                     <ProductQty value={String(product.amount)} />
                     <QtyButton
                       onPress={() =>
-                        updateAmountRequest(product.id, product.amount + 1)
+                        dispatch(
+                          Actions.updateAmountRequest(
+                            product.id,
+                            product.amount + 1
+                          )
+                        )
                       }>
                       <FeatherIcon
                         name="plus-circle"
@@ -113,39 +136,8 @@ const Cart = ({
       )}
     </Container>
   );
-};
+}
 
 Cart.propTypes = {
   navigation: PropTypes.shape({navigate: PropTypes.func.isRequired}).isRequired,
-  cart: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      title: PropTypes.string.isRequired,
-      price: PropTypes.number.isRequired,
-      image: PropTypes.string.isRequired,
-      formattedPrice: PropTypes.string.isRequired,
-      subTotal: PropTypes.string.isRequired,
-    })
-  ).isRequired,
-  total: PropTypes.string.isRequired,
-  updateAmountRequest: PropTypes.func.isRequired,
-  deleteFromCart: PropTypes.func.isRequired,
 };
-
-const mapStateToProps = (state) => ({
-  cart: state.CartReducer.map((product) => ({
-    ...product,
-    formattedPrice: formatPrice(product.price),
-    subTotal: formatPrice(product.amount * product.price),
-  })),
-  total: formatPrice(
-    state.CartReducer.reduce(
-      (total, product) => total + product.amount * product.price,
-      0
-    )
-  ),
-});
-
-const mapDispatchToProps = (dispatch) => bindActionCreators(Actions, dispatch);
-
-export default connect(mapStateToProps, mapDispatchToProps)(Cart);
